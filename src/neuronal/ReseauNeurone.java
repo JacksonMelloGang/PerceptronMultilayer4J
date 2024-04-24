@@ -50,19 +50,19 @@ public class ReseauNeurone {
     /**
      * Entraîne le réseau neuronal avec un lot d'échantillons en utilisant l'algorithme de rétropropagation du gradient.
      *
-     * @param batch Le lot d'échantillons à utiliser pour l'entraînement.
+     * @param lot Le lot d'échantillons à utiliser pour l'entraînement.
      * @param maxIterations Le nombre maximum d'itérations d'entraînement.
-     * @param learningRate Le taux d'apprentissage pour la mise à jour des poids du réseau.
+     * @param tauxApprentissage Le taux d'apprentissage pour la mise à jour des poids du réseau.
      */
-    public void train(LotEchantillon batch, int maxIterations, double learningRate) {
+    public void train(LotEchantillon lot, int maxIterations, double tauxApprentissage) {
 
         // pour chaque itération, on parcourt tous les échantillons du lot, on les fait passer dans le réseau, on calcule l'erreur et on met à jour les poids.
         for (int iteration = 0; iteration < maxIterations; iteration++) {
             System.out.println("\n---------------------------------------------------");
             System.out.println("Itération : n°" + iteration);
-            for (Echantillon sample : batch.getEchantillons()) {
+            for (Echantillon sample : lot.getEchantillons()) {
                 // Afficher le numéro de l'échantillon
-                System.out.println("Echantillon " + batch.getEchantillons().indexOf(sample) + ": " + sample.toString());
+                System.out.println("Echantillon " + lot.getEchantillons().indexOf(sample) + ": " + sample.toString());
 
                 // Faire passer les entrées de l'échantillon à travers le réseau
                 double[] inputs = sample.getEntrees();
@@ -86,7 +86,7 @@ public class ReseauNeurone {
                 System.out.println("MSE: " + mse);
 
                 // Propager l'erreur en arrière à travers le réseau et mettre à jour les poids
-                backpropagate(errors, learningRate);
+                backpropagate(errors, tauxApprentissage);
             }
         }
     }
