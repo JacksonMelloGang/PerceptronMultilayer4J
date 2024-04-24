@@ -1,0 +1,48 @@
+RéseauNeurone:
+	- 1 Couche Entrée
+	- X Couches Cachés
+	- 1 Couche Sortie
+
+Neurone:
+	- Poids
+	- Seuil (seuil duquel lorsque atteint, on envoie au neurones de la couche suivante les informations)
+
+
+NEURONE COUCHE ENTREE:
+	- Les poids des messages envoyés à la couche suivante : un ensemble de « n » valeurs réelles,
+		où « n » est le nombre de neurones de la deuxième couche ;
+	- Une fonc2on qui calcule les valeurs à envoyer à chaque neurone de la couche suivante.
+
+NEURONE COUCHE CACHEE:
+	- Poids des messages
+	- Seuil
+	- Une fonction qui calcule les valeurs à envoyer à chaque neurone de la couche suivante
+
+NEURONE COUCHE SORTIE:
+	- Seuil
+	- Fonction Affichage résultat
+
+
+Couche (Ensemble Neurones Même type):
+	- NB Neuronne de la couche
+	- Neurones
+	- Type Couche
+
+
+
+Echantillon:
+	- Lot valeurs d'entrée
+	- Résultat souhaité pour ces valeurs
+
+
+LotEchantillon:
+	- Echantillons
+
+
+
+
+
+
+
+
+
