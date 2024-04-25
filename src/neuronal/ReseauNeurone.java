@@ -57,15 +57,16 @@ public class ReseauNeurone {
      * @param tauxApprentissage Le taux d'apprentissage pour la mise à jour des poids du réseau.
      */
     public void train(LotEchantillon lot, int maxIterations, double tauxApprentissage) {
-                // pour chaque itération, on parcourt tous les échantillons du lot, on les fait passer dans le réseau, on calcule l'erreur et on met à jour les poids.
+        // pour chaque itération, on parcourt tous les échantillons du lot, on les fait passer dans le réseau, on calcule l'erreur et on met à jour les poids.
         for (int iteration = 0; iteration < maxIterations; iteration++) {
             System.out.println("\n---------------------------------------------------");
             System.out.println("Itération : n°" + iteration);
 
             // Mélanger les échantillons pour éviter le surapprentissage
-            Collections.shuffle(lot.getEchantillons());
+            //Collections.shuffle(lot.getEchantillons());
 
             for (Echantillon sample : lot.getEchantillons()) {
+
                 // Afficher le numéro de l'échantillon
                 System.out.println("Echantillon " + lot.getEchantillons().indexOf(sample) + ": " + sample.toString());
 
@@ -74,8 +75,8 @@ public class ReseauNeurone {
                 double[] targets = sample.getResultatAttendus();
                 double[] outputs = feedForward(inputs);
 
-                System.out.println("Actual outputs: " + Arrays.toString(outputs));
-                System.out.println("Target outputs: " + Arrays.toString(targets));
+                //System.out.println("Actual outputs: " + Arrays.toString(outputs));
+                //System.out.println("Target outputs: " + Arrays.toString(targets));
 
                 // Calculer l'erreur pour chaque sortie (l'erreur est la différence entre la sortie attendue et la sortie réelle, donc une erreur négativ
                 // proche de 0 est correcte (à condition que ce n'est pas trop grand)
@@ -95,6 +96,7 @@ public class ReseauNeurone {
 
                 // Propager l'erreur en arrière à travers le réseau et mettre à jour les poids
                 backpropagate(errors, tauxApprentissage);
+
             }
         }
     }

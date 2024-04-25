@@ -1,6 +1,9 @@
 package main;
 
 
+import fonctions.FonctionLineaire;
+import fonctions.FonctionReLU;
+import fonctions.FonctionSeuil;
 import fonctions.FonctionSigmoide;
 import neuronal.ReseauNeurone;
 import neuronal.couche.CoucheCache;
@@ -12,6 +15,8 @@ import neuronal.neurone.NeuroneSortie;
 import echantillons.Echantillon;
 import echantillons.LotEchantillon;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class Binaire_ET {
@@ -19,19 +24,17 @@ public class Binaire_ET {
     public static void main(String[] args) {
 
         // Paramètres de l'IA
-        int maxIterations = 1500;
-        double learningRate = 0.01;
+        int maxIterations = 1000;
+        double learningRate = 0.1;
 
         // Couche d'entrée (Two Inputs: X and Y)
         CoucheEntree inputLayer = new CoucheEntree(2);
-        inputLayer.addNeurone(new NeuroneEntree(2, new FonctionSigmoide()));
-        inputLayer.addNeurone(new NeuroneEntree(2, new FonctionSigmoide()));
-
-        // Couche cachée
+        inputLayer.addNeurone(new NeuroneEntree(2, new FonctionReLU()));
+        inputLayer.addNeurone(new NeuroneEntree(2, new FonctionReLU()));
 
         // Couche de sortie (One Output: Z)
         CoucheSortie outputLayer = new CoucheSortie(1);
-        outputLayer.addNeurone(new NeuroneSortie(1, new FonctionSigmoide()));
+        outputLayer.addNeurone(new NeuroneSortie(1, new FonctionReLU()));
 
         ReseauNeurone network = new ReseauNeurone();
         network.addCouche(inputLayer);
@@ -43,11 +46,7 @@ public class Binaire_ET {
         batch.addEchantillon(new Echantillon(new double[]{0, 1}, new double[]{0}));
         batch.addEchantillon(new Echantillon(new double[]{1, 0}, new double[]{0}));
         batch.addEchantillon(new Echantillon(new double[]{1, 1}, new double[]{1}));
-
-
         network.train(batch, maxIterations, learningRate);
-
-
 
         System.out.println("-----------------------------------");
         System.out.println("Entrainement terminé.");
@@ -56,25 +55,16 @@ public class Binaire_ET {
 
 
         // exemple cas d'utilisation avec 2 entrées de valeurs "aléatoire" 0,5 et 0,8
-        // Créer un tableau pour les nouvelles entrées
-        double[] newInputs = {1, 1};
 
-        // Utiliser le réseau de neurones pour faire une prédiction
-        double[] outputs = network.feedForward(newInputs);
+        ArrayList<double[]> inputslist = new ArrayList<double[]>();
+        inputslist.add(new double[]{0, 0});
+        inputslist.add(new double[]{0, 1});
+        inputslist.add(new double[]{1, 0});
+        inputslist.add(new double[]{1, 1});
 
-        // Afficher les sorties
-        for (double output : outputs) {
-            System.out.println(output);
+        for (double[] inputs : inputslist) {
+            double[] outputs = network.feedForward(inputs);
+            System.out.println(String.format("Résultat pour entrées %s: %s", Arrays.toString(inputs), outputs[0]));
         }
-
-        // Explication:
-
-        // Le réseau de neurones a été entraîné pour effectuer l'opération ET.
-        // Les entrées fournies sont 0,5 et 0,8.
-        // la sortie attendue correspond à une prediction obtenu à partir du réseau de neurones.
-
-        // Cette sortie correspond à la probabilité que les 2 entrées soient vraies (donc 1),
-
-        // la sortie théorique doit être de 0 car0,5 et 0,8 ne sont pas tous les deux vrais. (=1)
     }
 }

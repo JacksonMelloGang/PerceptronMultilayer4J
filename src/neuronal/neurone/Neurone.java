@@ -24,7 +24,7 @@ public class Neurone {
         // Initialisation des poids à des valeurs aléatoires
         poids = new double[nombreEntrees];
         for (int i = 0; i < nombreEntrees; i++) {
-            poids[i] = Math.sqrt(2.0 / nombreEntrees) * (Math.random() - 0.5);
+            poids[i] = Math.random();
         }
 
         this.seuil = Math.random();
