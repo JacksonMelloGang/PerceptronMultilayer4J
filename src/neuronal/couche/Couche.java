@@ -38,7 +38,7 @@ public class Couche {
                 }
             }
         } else {
-            System.out.println("Le neurone n'appartient pas à cette couche !");
+            throw new IllegalArgumentException("Le neurone n'appartient pas à cette couche !");
         }
     }
 
