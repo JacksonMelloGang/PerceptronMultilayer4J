@@ -75,6 +75,7 @@ public class ReseauNeurone {
     public double[] predire(double[] inputs){
         if (aCoucheCachee) {
             double[] currentInputs = inputs;
+
             for (CoucheCachee coucheCachee : couchecaches) {
                 for (Neurone neuron : coucheCachee.getNeurones()) {
                     neuron.activer(currentInputs);
@@ -92,6 +93,7 @@ public class ReseauNeurone {
                 neurone.activer(inputs);
             }
         }
+
 
         return couchesortie.getSorties();
     }
