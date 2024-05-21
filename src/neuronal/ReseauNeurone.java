@@ -15,6 +15,9 @@ import java.util.ArrayList;
  */
 public class ReseauNeurone {
 
+    // Si le réseau a des couches cachées
+    private boolean aCoucheCachee;
+
     // Couche de sortie
     private CoucheSortie couchesortie;
 
@@ -35,16 +38,22 @@ public class ReseauNeurone {
     public ReseauNeurone(int tailleEntree, int[] tailleCoucheCachees){
         this.coucheentree = new CoucheEntree(tailleEntree);
 
-        // créer les couches cachées, on récupere la taille de la 1ere couche pour définir la taille des couches cachees
-        this.couchecaches = new ArrayList<CoucheCachee>();
-        int taillePrecedente = tailleEntree;
-        for(int i = 0; i < tailleCoucheCachees.length; i++){
-            CoucheCachee couche_c = new CoucheCachee(tailleCoucheCachees[i], taillePrecedente);
-            couchecaches.add(couche_c);
-            taillePrecedente = tailleCoucheCachees[i];
-        }
-        this.couchesortie = new CoucheSortie(taillePrecedente);
+        if(tailleCoucheCachees != null){
+            aCoucheCachee = true;
 
+            // créer les couches cachées, on récupere la taille de la 1ere couche pour définir la taille des couches cachees
+            this.couchecaches = new ArrayList<CoucheCachee>();
+            int taillePrecedente = tailleEntree;
+            for(int i = 0; i < tailleCoucheCachees.length; i++){
+                CoucheCachee couche_c = new CoucheCachee(tailleCoucheCachees[i], taillePrecedente);
+                couchecaches.add(couche_c);
+                taillePrecedente = tailleCoucheCachees[i];
+            }
+            this.couchesortie = new CoucheSortie(taillePrecedente);
+        } else {
+            // Si on a pas de couches cachées a créer
+            this.couchesortie = new CoucheSortie(tailleEntree);
+        }
     }
 
 
@@ -64,14 +73,23 @@ public class ReseauNeurone {
      * @return La sortie du réseau.
      */
     public double[] predire(double[] inputs){
-        double[] outputs = inputs;
-
-        // on fait passer les entrées dans chaque couche du réseau
-        for(CoucheCachee couche_c : couchecaches){
-            outputs = couche_c.propager(outputs);
+        if (aCoucheCachee) {
+            double[] currentInputs = inputs;
+            for (CoucheCachee hiddenLayer : couchecaches) {
+                for (Neurone neuron : hiddenLayer.getNeurones()) {
+                    neuron.activer(currentInputs);
+                }
+                currentInputs = hiddenLayer.getSorties();
+            }
+            for (Neurone neuron : couchesortie.getNeurones()) {
+                neuron.activer(currentInputs);
+            }
+        } else {
+            for (Neurone neuron : couchesortie.getNeurones()) {
+                neuron.activer(inputs);
+            }
         }
-
-        return couchesortie.propager(outputs);
+        return couchesortie.getSorties();
     }
 
     /**
@@ -129,7 +147,7 @@ public class ReseauNeurone {
         couchesortie.getNeurones()[0].setDelta(sortieDelta);
 
         // Si on a des couches cachées
-        if(!couchecaches.isEmpty()){
+        if(aCoucheCachee){
 
             // on calcule les deltas de la derniere couche cachées
             double deltas[] = new double[couchecaches.getLast().getNbNeurones()];
@@ -178,7 +196,7 @@ public class ReseauNeurone {
 
             // Si on a pas de couches cachées
             // TODO: prendre cas si pas de couche cachées
-            //couchesortie.getNeurones()[0].updateWeights(inputs, tauxApprentissage);
+            couchesortie.getNeurones()[0].updateWeights(inputs, tauxApprentissage);
         }
     }
 
