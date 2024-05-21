@@ -1,0 +1,15 @@
+La retropropagation ne fonctionne pas, re-ecriture de la fonctionnalité de repropagation en cours:
+
+- [ ] Implémenter la rétropropagation
+
+## 2.2.2. Implémentation de la rétropropagation
+
+Pour l'implémenter, faire des calculs sur la couche de sortie et les couches cachées.
+D'abord les neurones de sortie puis on remonte jusqu'a la couche d'entrée -1 (on s'arrête juste avant).
+On utilisera la dérivée de la fonction d'activation pour calculer les gradients.
+
+### Changelog
+
+- Ajout des fonctions de dérivées des fonctions d'activation
+- Suppresion de backpropagate dans ReseauNeurone.java
+- Ajout de différents valeurs (input, output, delta) dans Neurone.java
