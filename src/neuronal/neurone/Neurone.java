@@ -21,7 +21,7 @@ public class Neurone {
 
     private FonctionActivation fonctionActivation;
 
-    private Random rdm = new Random();
+    //private Random rdm = new Random();
 
     /**
      * Constructeur pour la classe Neurone.
