@@ -16,12 +16,12 @@ public class Binaire_ET {
     public static void main(String[] args) {
 
         // Paramètres de l'IA
-        int maxIterations = 10000;
-        double learningRate = 0.1;
+        int maxIterations = 150;
+        double learningRate = 0.2;
 
         int[] taille_couche_c = {2, 2}; // 2 Couche cachées, 2 neurones chacune
 
-        ReseauNeurone network = new ReseauNeurone(2, taille_couche_c);
+        ReseauNeurone network = new ReseauNeurone(2, null);
 
         // Batch 1
         LotEchantillon batch = new LotEchantillon();

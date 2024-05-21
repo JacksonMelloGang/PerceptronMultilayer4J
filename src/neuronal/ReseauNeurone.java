@@ -75,20 +75,26 @@ public class ReseauNeurone {
     public double[] predire(double[] inputs){
         if (aCoucheCachee) {
             double[] currentInputs = inputs;
-            for (CoucheCachee hiddenLayer : couchecaches) {
-                for (Neurone neuron : hiddenLayer.getNeurones()) {
+
+            for (CoucheCachee coucheCachee : couchecaches) {
+                for (Neurone neuron : coucheCachee.getNeurones()) {
                     neuron.activer(currentInputs);
                 }
-                currentInputs = hiddenLayer.getSorties();
+                currentInputs = coucheCachee.getSorties();
             }
-            for (Neurone neuron : couchesortie.getNeurones()) {
-                neuron.activer(currentInputs);
+
+            // Pour chaque neurone dans la couche de sortie, on active le neurone
+            for (Neurone neurone : couchesortie.getNeurones()) {
+                neurone.activer(currentInputs);
             }
         } else {
-            for (Neurone neuron : couchesortie.getNeurones()) {
-                neuron.activer(inputs);
+            // Si on a pas de couches cachées, pour chaque neuronne dans la couche de sortie, on active le neurone
+            for (Neurone neurone : couchesortie.getNeurones()) {
+                neurone.activer(inputs);
             }
         }
+
+
         return couchesortie.getSorties();
     }
 
