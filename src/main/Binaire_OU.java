@@ -14,11 +14,9 @@ public class Binaire_OU {
         int maxIterations = 10000;
         double learningRate = 0.1;
 
-        int[] taille_couche_c = {1, 2}; // 2 Couche cachées, 2 neurones chacune
-
         ReseauNeurone network = new ReseauNeurone(2, null);
 
-        // Batch 1
+        // Batch
         LotEchantillon batch = new LotEchantillon();
         batch.addEchantillon(new Echantillon(new double[]{0, 0}, new double[]{0}));
         batch.addEchantillon(new Echantillon(new double[]{0, 1}, new double[]{1}));
@@ -39,7 +37,15 @@ public class Binaire_OU {
 
         for (double[] inputs : inputslist) {
             double[] outputs = network.predire(inputs);
-            System.out.println(String.format("Résultat pour entrées %s: %s", Arrays.toString(inputs), outputs[0]));
+            double result = outputs[0];
+
+            if(outputs[0] > 0.5){
+                result = 1;
+            } else {
+                result = 0;
+            }
+            System.out.println(String.format("Résultat pour entrées %s: %s (%.5f)", Arrays.toString(inputs), result, outputs[0]));
+
         }
     }
 }
