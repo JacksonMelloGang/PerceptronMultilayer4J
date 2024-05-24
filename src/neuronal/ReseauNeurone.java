@@ -33,10 +33,10 @@ public class ReseauNeurone {
      * Constructeur du réseau de neurones.
      * Initialise la couche d'entrée, les couches cachées et la couche de sortie.
      *
-     * @param tailleEntree La taille de la couche d'entrée (nombre de neurone dans la couche d'entrée).
+     * @param tailleEntree        La taille de la couche d'entrée (nombre de neurone dans la couche d'entrée).
      * @param tailleCoucheCachees Les tailles des couches cachées.
      */
-    public ReseauNeurone(int tailleEntree, int[] tailleCoucheCachees, int tailleSortie){
+    public ReseauNeurone(int tailleEntree, int[] tailleCoucheCachees, int nbNeuronSortie){
         this.coucheentree = new CoucheEntree(tailleEntree); // On créer la couche d'entrée
 
         // Si l'on souhaite créer des couches cachées
@@ -53,10 +53,10 @@ public class ReseauNeurone {
             }
 
             // On crée la couche de sortie
-            this.couchesortie = new CoucheSortie(tailleNeuronePrecedente);
+            this.couchesortie = new CoucheSortie(nbNeuronSortie, tailleNeuronePrecedente);
         } else {
             // Si on a pas de couches cachées a créer, on crée directement la couche de sortie
-            this.couchesortie = new CoucheSortie(tailleSortie);
+            this.couchesortie = new CoucheSortie(nbNeuronSortie, tailleEntree);
         }
     }
 

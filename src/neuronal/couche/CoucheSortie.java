@@ -6,8 +6,8 @@ public class CoucheSortie extends Couche {
      * Constructeur de la couche de sortie
      * @param nombreEntreesParNeurone Le nombre d'entrées par neurone.
      */
-    public CoucheSortie(int nombreEntreesParNeurone) {
-        super(nombreEntreesParNeurone, nombreEntreesParNeurone, TypeCouche.SORTIE);
+    public CoucheSortie(int nombreNeuronCree, int nombreEntreesParNeurone) {
+        super(nombreNeuronCree, nombreEntreesParNeurone, TypeCouche.SORTIE);
     }
 
     /**

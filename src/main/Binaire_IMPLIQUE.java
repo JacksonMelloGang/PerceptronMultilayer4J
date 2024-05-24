@@ -22,8 +22,8 @@ public class Binaire_IMPLIQUE {
         // Batch
         LotEchantillon batch = new LotEchantillon();
         batch.addEchantillon(new Echantillon(new double[]{0, 0}, new double[]{1}));
-        batch.addEchantillon(new Echantillon(new double[]{0, 1}, new double[]{0}));
-        batch.addEchantillon(new Echantillon(new double[]{1, 0}, new double[]{1}));
+        batch.addEchantillon(new Echantillon(new double[]{0, 1}, new double[]{1}));
+        batch.addEchantillon(new Echantillon(new double[]{1, 0}, new double[]{0}));
         batch.addEchantillon(new Echantillon(new double[]{1, 1}, new double[]{1}));
 
         // Entrainement

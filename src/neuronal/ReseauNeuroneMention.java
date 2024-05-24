@@ -84,4 +84,6 @@ public class ReseauNeuroneMention extends ReseauNeurone {
             neuron.updateWeights(poids, getTauxApprentissage()); // Mise à jour des poids
         }
     }
+
+
 }

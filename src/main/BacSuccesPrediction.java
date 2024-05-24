@@ -1,14 +1,20 @@
 package main;
 
-import neuronal.ReseauNeuroneMention;
+//import neuronal.ReseauNeuroneMention;
 import echantillons.Echantillon;
 import echantillons.LotEchantillon;
 import neuronal.ReseauNeurone;
+import neuronal.ReseauNeuroneMention;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BacSuccesPrediction {
+
+    /**
+     * Note: Il manque le fichier "notes Farfaraway", donc pas possible de faire la 3.2.a ni la 3.1.b (je crois)
+     */
+
 
     public static void main(String[] args) {
 

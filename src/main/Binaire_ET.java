@@ -2,9 +2,6 @@ package main;
 
 
 import neuronal.ReseauNeurone;
-import neuronal.couche.CoucheCachee;
-import neuronal.couche.CoucheEntree;
-import neuronal.couche.CoucheSortie;
 import echantillons.Echantillon;
 import echantillons.LotEchantillon;
 
