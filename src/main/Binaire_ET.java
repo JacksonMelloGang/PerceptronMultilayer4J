@@ -20,7 +20,7 @@ public class Binaire_ET {
         double learningRate = 0.1;
 
         // Création du réseau de neurones
-        ReseauNeurone network = new ReseauNeurone(2, null);
+        ReseauNeurone network = new ReseauNeurone(2, null, 1);
 
         // Batch
         LotEchantillon batch = new LotEchantillon();

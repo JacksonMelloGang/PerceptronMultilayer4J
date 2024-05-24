@@ -14,7 +14,7 @@ public class Binaire_OU {
         int maxIterations = 10000;
         double learningRate = 0.1;
 
-        ReseauNeurone network = new ReseauNeurone(2, null);
+        ReseauNeurone network = new ReseauNeurone(2, null, 1);
 
         // Batch
         LotEchantillon batch = new LotEchantillon();

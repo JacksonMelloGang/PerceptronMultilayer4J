@@ -15,7 +15,7 @@ public class Binaire_NON {
         double learningRate = 0.1;
 
 
-        ReseauNeurone network = new ReseauNeurone(1, null);
+        ReseauNeurone network = new ReseauNeurone(1, null, 1);
 
         // Batch
         LotEchantillon batch = new LotEchantillon();

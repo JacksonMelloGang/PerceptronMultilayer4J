@@ -17,7 +17,7 @@ public class Binaire_IMPLIQUE {
 
         int[] taille_couche_c = {2, 2}; // 2 Couche cachées, 2 neurones chacune
 
-        ReseauNeurone network = new ReseauNeurone(2, taille_couche_c);
+        ReseauNeurone network = new ReseauNeurone(2, taille_couche_c, 1);
 
         // Batch
         LotEchantillon batch = new LotEchantillon();

@@ -36,7 +36,7 @@ public class ReseauNeurone {
      * @param tailleEntree La taille de la couche d'entrée (nombre de neurone dans la couche d'entrée).
      * @param tailleCoucheCachees Les tailles des couches cachées.
      */
-    public ReseauNeurone(int tailleEntree, int[] tailleCoucheCachees){
+    public ReseauNeurone(int tailleEntree, int[] tailleCoucheCachees, int tailleSortie){
         this.coucheentree = new CoucheEntree(tailleEntree); // On créer la couche d'entrée
 
         // Si l'on souhaite créer des couches cachées
@@ -56,7 +56,7 @@ public class ReseauNeurone {
             this.couchesortie = new CoucheSortie(tailleNeuronePrecedente);
         } else {
             // Si on a pas de couches cachées a créer, on crée directement la couche de sortie
-            this.couchesortie = new CoucheSortie(tailleEntree);
+            this.couchesortie = new CoucheSortie(tailleSortie);
         }
     }
 
@@ -160,7 +160,7 @@ public class ReseauNeurone {
      * @param inputs Les entrées du réseau.
      * @param targets Les sorties attendues.
      */
-    private void backpropagate(double[] inputs, double[] targets) {
+    public void backpropagate(double[] inputs, double[] targets) {
         // passer les entrées a travers le réseau
         double[] outputs = predire(inputs);
 
@@ -217,16 +217,33 @@ public class ReseauNeurone {
 
             // on met a jour les poids de la couche de sortie
             double[] finalSortieCachee = couchecaches.get(couchecaches.size() - 1).getSorties();
-            for(Neurone neurone : couchesortie.getNeurones()){
-                neurone.updateWeights(finalSortieCachee, tauxApprentissage);
-            }
+            couchesortie.getNeurones()[0].updateWeights(finalSortieCachee, tauxApprentissage);
         } else {
             // Si on a pas de couches cachées, on met a jour les neuronnes de sorties directement
             // parcourt la liste des neurones dans la couche de sortie et met a jour les poids
-            for(Neurone neurone : couchesortie.getNeurones()){
-                neurone.updateWeights(inputs, tauxApprentissage);
-            }
+            couchesortie.getNeurones()[0].updateWeights(inputs, tauxApprentissage);
         }
     }
 
+
+    /////////////////
+    // Getters
+    /////////////////
+
+
+    public ArrayList<CoucheCachee> getCouchecaches() {
+        return couchecaches;
+    }
+
+    public CoucheEntree getCoucheentree() {
+        return coucheentree;
+    }
+
+    public CoucheSortie getCouchesortie() {
+        return couchesortie;
+    }
+
+    public double getTauxApprentissage() {
+        return tauxApprentissage;
+    }
 }
