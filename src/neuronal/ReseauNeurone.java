@@ -179,17 +179,20 @@ public class ReseauNeurone {
             // TODO: check si on peut fusionner les 2 bouts de codes [175-183] et [185-204]
 
             // pour chaque neurone de la dernière couche cachée, on calcule le delta
+            double deltas[] = new double[couchecaches.getLast().getNbNeurones()];
             for(int i = 0; i < couchecaches.get(couchecaches.size() - 1).getNbNeurones(); i++){
                 Neurone neurone_c = couchecaches.get(couchecaches.size() - 1).getNeurones()[i]; // on récupère le neurone de la couche cachée
                 double erreur_c = sortieDelta * couchesortie.getNeurones()[0].getPoids()[i]; // on calcule l'erreur du neurone
-                double delta_c = erreur_c * neurone_c.getFonctionActivation().derivee(neurone_c.getOutput()); // calcul du delta
+                double delta_c = erreur_c * neurone_c.getOutput() * (1 - neurone_c.getOutput()); // calcul du delta
                 neurone_c.setDelta(delta_c); // on définit le delta du neurone de la couche cachée
+                deltas[i] = delta_c;
             }
 
             // on calcule les deltas des couches cachées restantes (jusqu'a la couche d'entree (EXCLU))
             for (int layerIndex = couchecaches.size() - 2; layerIndex >= 0; layerIndex--) {
                 CoucheCachee coucheCachee = couchecaches.get(layerIndex); // on récupère la couche cachée
                 CoucheCachee coucheSuivante = couchecaches.get(layerIndex + 1); // on récupère la couche précédente (en partant de la fin donc la couche actuel +1 )
+                double[] nextDeltas = new double[coucheCachee.getNeurones().length];
 
                 // pour chaque neurone de la couche cachée actuelle, on calcule le delta
                 for (int i = 0; i < coucheCachee.getNeurones().length; i++) {
@@ -199,9 +202,12 @@ public class ReseauNeurone {
                         erreurCachee += coucheSuivante.getNeurones()[j].getDelta() * coucheSuivante.getNeurones()[j].getPoids()[i];
                     }
 
-                    double deltaCachee = erreurCachee * neurone_c.getFonctionActivation().derivee(neurone_c.getOutput()); // calcul du gradient de l'erreur par rapport aux poids du réseau
+                    double deltaCachee = erreurCachee * neurone_c.getOutput() * (1 - neurone_c.getOutput()); // calcul du gradient de l'erreur par rapport aux poids du réseau
                     neurone_c.setDelta(deltaCachee); // on définit le delta du neurone de la couche cachée
+                    nextDeltas[i] = deltaCachee;
                 }
+
+                deltas = nextDeltas;
             }
 
             // on met a jour les poids des neurones
